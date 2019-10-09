@@ -33,6 +33,11 @@ class Bookmarks
     Bookmarks.new(id: id, url: url, title: title)
   end
 
+  def self.update(id:, url:, title:)
+    result = self.connection.exec(("UPDATE bookmarks SET url = '#{url}', title = '#{title}' WHERE id = #{id} RETURNING id, url, title;"))
+    Bookmarks.new(id: result[0]['id'], title: result[0]['title'], url: result[0]['url'])
+  end
+
   private
 
   def self.connection
