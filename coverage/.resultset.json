@@ -88,21 +88,12 @@
         1,
         null,
         null,
+        null,
+        1,
+        1,
         1,
         1,
         null,
-        1,
-        null,
-        null,
-        null
-      ],
-      "/Users/duncanskinner/Documents/makers_academy/course/week_4/Bookmark-manager-K/lib/database_connection.rb": [
-        1,
-        1,
-        2,
-        null,
-        null,
-        1,
         1,
         null,
         null,
@@ -181,6 +172,6 @@
         null
       ]
     },
-    "timestamp": 1570713982
+    "timestamp": 1570716291
   }
 }
