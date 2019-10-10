@@ -1,3 +1,4 @@
+ <p><%= flash[:notice] %></p>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
@@ -7,6 +8,7 @@
   <header>Bookmark Manager</header>
   <body>
     <ul>
+    <%= flash[:notice] %>
       <% @bookmarks.each do |bookmark| %>
         <li class="bookmark" id="bookmark-<%= bookmark.id %>">
         <a href="<%= bookmark.url %>" target="_blank">
@@ -21,7 +23,7 @@
         </form>
       </li>
       <% end %>
-    
     </ul>
   </body>
+
 </html>
