@@ -1,5 +1,3 @@
-require 'pg'
-
 feature 'Add new bookmark' do
   scenario 'User adds a new bookmark to database' do
     visit ('/bookmarks/new')

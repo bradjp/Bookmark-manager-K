@@ -8,8 +8,8 @@ class BookmarkManager < Sinatra::Base
   enable :method_override, :sessions
   register Sinatra::Flash
 
-  get '/' do
-    "Bookmark Manager"
+  get '/bookmarks/:id/comments/new' do
+    erb(:"comments/new")
   end
 
   get '/bookmarks' do
@@ -40,6 +40,12 @@ class BookmarkManager < Sinatra::Base
   post '/bookmarks' do
     flash[:notice] = "Not a valid URL!" unless Bookmarks.create(url: params[:url], title: params[:title])
     redirect '/bookmarks'
+  end
+
+  post '/bookmarks/:id/comments' do
+    connection = PG.connect(dbname: 'bookmark_manager_test')
+    connection.exec("INSERT INTO comments (text, bookmark_id) VALUES('#{params[:comment]}', '#{params[:id]}');")
+    redirect 'bookmarks'
   end
 
   run! if app_file == $0
