@@ -10,7 +10,6 @@ class BookmarkManager < Sinatra::Base
 
   get '/' do
     "Bookmark Manager"
-    # erb :index
   end
 
   get '/bookmarks' do
