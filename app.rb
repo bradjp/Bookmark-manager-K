@@ -1,5 +1,6 @@
 require 'sinatra/base'
 require_relative './lib/bookmarks'
+require './database_connection_setup'
 
 class BookmarkManager < Sinatra::Base
   enable :method_override
@@ -31,7 +32,7 @@ class BookmarkManager < Sinatra::Base
 
   get '/bookmarks/:id/edit' do
     @bookmark_id = params[:id]
-    erb :'bookmarks/edit' 
+    erb :'bookmarks/edit'
   end
 
   patch '/bookmarks/:id' do
