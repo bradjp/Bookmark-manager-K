@@ -72,10 +72,11 @@ describe Bookmarks do
   describe '#comments' do
     it 'calls .where on the Comment class' do
       bookmark = Bookmarks.create(url: 'http://www.reddit.com', title: 'Reddit')
-      DatabaseConnection.query("INSERT INTO comments (id, text, bookmark_id) VALUES(1, 'Test comment', #{bookmark.id})")
-      expect(:comment_class).to receive(:where).with(bookmark_id: bookmark.id)
+      expect(comment_class).to receive(:where).with(bookmark_id: bookmark.id)
 
-      bookmark.comments(:comment_class)
+      bookmark.comments(comment_class)
     end
   end
+
+
 end
