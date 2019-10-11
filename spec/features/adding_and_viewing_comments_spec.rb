@@ -3,7 +3,7 @@ feature 'adding and viewing comments' do
     scenario 'adding a comment to a bookmark' do
       Bookmarks.create(url: 'http://reddit.com', title: 'Reddit')
       visit('/bookmarks')
-      first('.bookmark').click_button 'Add a comment'
+      first('.bookmark').click_button 'Comment'
       expect(current_path).to eq "/bookmarks/#{bookmark.id}/comments/new"
 
       fill_in 'comment', with: 'Also a comment'

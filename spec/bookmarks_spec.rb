@@ -4,6 +4,7 @@ require 'database_helpers'
 describe Bookmarks do
 
   subject(:bookmarks) { described_class.new }
+  let(:comment_class) { double(:comment_class) }
 
   describe '#all' do
     it 'should return a list of bookmarks' do
@@ -26,7 +27,7 @@ describe Bookmarks do
   describe '#create' do
     it 'creates a new bookmark' do
       bookmark = Bookmarks.create(url: 'http://www.test.com', title: 'Test')
-      persisted_data = persisted_data(id: bookmark.id)
+      persisted_data = persisted_data(table: 'bookmarks', id: bookmark.id)
 
       expect(bookmark).to be_a Bookmarks
       expect(bookmark.id).to eq persisted_data.first['id']
@@ -65,6 +66,16 @@ describe Bookmarks do
         expect(Bookmarks.get_bookmark(bookmark.id).url).to eq(bookmark.url)
         expect(Bookmarks.get_bookmark(bookmark.id).title).to eq(bookmark.title)
       end
+    end
+  end
+
+  describe '#comments' do
+    it 'calls .where on the Comment class' do
+      bookmark = Bookmarks.create(url: 'http://www.reddit.com', title: 'Reddit')
+      DatabaseConnection.query("INSERT INTO comments (id, text, bookmark_id) VALUES(1, 'Test comment', #{bookmark.id})")
+      expect(:comment_class).to receive(:where).with(bookmark_id: bookmark.id)
+
+      bookmark.comments(:comment_class)
     end
   end
 end

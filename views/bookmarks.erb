@@ -19,13 +19,19 @@
         <form action="/bookmarks/<%= bookmark.id %>/edit" method='get'>
         <input type='submit' value='Edit'/>
         </form>
+        <ul>
+          <% bookmark.comments.each do |comment| %>
+          <li><%= comment.text %></li>
+          <% end %>
+        </ul>
         <form action='/bookmarks/<%=bookmark.id%>/comments/new' method='get'>
-          <input type='submit' value='add_comment'>
+          <input type='submit' value='Comment'>
         </form>
       </li>
       <% end %>
     </ul>
   </body>
+  </li>
 <p>
 <%= flash[:notice] %>
 </p>

@@ -1,6 +1,7 @@
 require 'sinatra/base'
 require_relative './lib/bookmarks'
 require_relative './database_connection_setup'
+require_relative './lib/comment'
 require 'sinatra/flash'
 require 'uri'
 
@@ -9,8 +10,15 @@ class BookmarkManager < Sinatra::Base
   register Sinatra::Flash
 
   get '/bookmarks/:id/comments/new' do
+    @bookmark_id = params[:id]
     erb(:"comments/new")
   end
+
+  post '/bookmarks/:id/comments' do
+    Comment.create(bookmark_id: params[:id], text: params[:comment])
+    redirect '/bookmarks'
+  end
+  
 
   get '/bookmarks' do
     @bookmarks = Bookmarks.all
@@ -18,7 +26,7 @@ class BookmarkManager < Sinatra::Base
   end
 
   get '/bookmarks/new' do
-
+    @bookmark_id = params[:id]
     erb(:"bookmarks/new")
   end
 
@@ -40,12 +48,6 @@ class BookmarkManager < Sinatra::Base
   post '/bookmarks' do
     flash[:notice] = "Not a valid URL!" unless Bookmarks.create(url: params[:url], title: params[:title])
     redirect '/bookmarks'
-  end
-
-  post '/bookmarks/:id/comments' do
-    connection = PG.connect(dbname: 'bookmark_manager_test')
-    connection.exec("INSERT INTO comments (text, bookmark_id) VALUES('#{params[:comment]}', '#{params[:id]}');")
-    redirect 'bookmarks'
   end
 
   run! if app_file == $0
