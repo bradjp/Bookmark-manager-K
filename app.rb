@@ -22,12 +22,12 @@ class BookmarkManager < Sinatra::Base
 
   get '/bookmarks' do
     @bookmarks = Bookmarks.all
-    erb(:bookmarks)
+    erb(:'bookmarks')
   end
 
   get '/bookmarks/new' do
     @bookmark_id = params[:id]
-    erb(:"bookmarks/new")
+    erb(:'bookmarks/new')
   end
 
   delete '/bookmarks/:id' do
@@ -47,6 +47,14 @@ class BookmarkManager < Sinatra::Base
 
   post '/bookmarks' do
     flash[:notice] = "Not a valid URL!" unless Bookmarks.create(url: params[:url], title: params[:title])
+    redirect '/bookmarks'
+  end
+
+  get '/users/new' do
+    erb(:'users/new')
+  end
+
+  post '/users/' do
     redirect '/bookmarks'
   end
 

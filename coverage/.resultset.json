@@ -233,6 +233,19 @@
         null,
         null
       ],
+      "/Users/student/Desktop/Projects/bookmark_manager_with_Nat/spec/features/user_registration_spec.rb": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        null,
+        1,
+        null,
+        null,
+        null
+      ],
       "/Users/student/Desktop/Projects/bookmark_manager_with_Nat/spec/features/view_bookmarks_spec.rb": [
         1,
         null,
@@ -251,6 +264,6 @@
         null
       ]
     },
-    "timestamp": 1570807140
+    "timestamp": 1570810670
   }
 }
