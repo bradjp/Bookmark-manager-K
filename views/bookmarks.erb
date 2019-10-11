@@ -5,6 +5,10 @@
     <title>Bookmark Manager</title>
   </head>
   <header>Bookmark Manager</header>
+
+  <% if @user%>
+  <h1> Welcome <%= @user.email %> </h1>
+  <% end %>
   <body>
     <ul>
       <% @bookmarks.each do |bookmark| %>

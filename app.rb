@@ -4,6 +4,7 @@ require_relative './database_connection_setup'
 require_relative './lib/comment'
 require 'sinatra/flash'
 require 'uri'
+require './lib/user'
 
 class BookmarkManager < Sinatra::Base
   enable :method_override, :sessions
@@ -21,6 +22,7 @@ class BookmarkManager < Sinatra::Base
   
 
   get '/bookmarks' do
+    @user = User.find(session[:user_id])
     @bookmarks = Bookmarks.all
     erb(:'bookmarks')
   end
@@ -54,7 +56,9 @@ class BookmarkManager < Sinatra::Base
     erb(:'users/new')
   end
 
-  post '/users/' do
+  post '/users' do
+    user = User.create(email: params['email'], password: params['password'])
+    session[:user_id] = user.id
     redirect '/bookmarks'
   end
 
